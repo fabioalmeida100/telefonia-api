@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ValuesController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Model\" />
+    <Folder Include="Business\" />
+    <Folder Include="Db\" />
+    <Folder Include="Repository\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
