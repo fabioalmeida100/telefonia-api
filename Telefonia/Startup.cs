@@ -7,10 +7,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Telefonia.Business;
+using Telefonia.Business.Implementation;
+using Telefonia.Model.Context;
+using Telefonia.Repository.Generic;
+using Telefonia.Repository.Implementation;
 
 namespace Telefonia
 {
@@ -26,6 +32,11 @@ namespace Telefonia
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration["MySqlConnetion:MySqlConnectionString"];
+            services.AddDbContext<MySQLContext>(options => options
+                .UseLazyLoadingProxies()
+                .UseMySql(connectionString));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(c =>
             {
@@ -36,6 +47,10 @@ namespace Telefonia
                     Version = "v1"
                 });
             });
+
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IPlanoBusiness, PlanoBusinessImpl>();
+            services.AddScoped<PlanoRepositoryImpl>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

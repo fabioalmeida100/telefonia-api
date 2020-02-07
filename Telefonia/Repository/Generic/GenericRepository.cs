@@ -10,10 +10,10 @@ namespace Telefonia.Repository.Generic
 {
     public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private Model.Context.MySQLContext _context;
+        private MySQLContext _context;
         private DbSet<T> dataset;
 
-        public GenericRepository(Model.Context.MySQLContext context)
+        public GenericRepository(MySQLContext context)
         {
             _context = context;
             dataset = _context.Set<T>();
@@ -49,7 +49,7 @@ namespace Telefonia.Repository.Generic
 
         public T FindById(long id)
         {
-            var entity = dataset.SingleOrDefault(p = p.Id == id);
+            var entity = dataset.SingleOrDefault(p => p.Id == id);
             return entity;
         }
 

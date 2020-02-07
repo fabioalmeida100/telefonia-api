@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Telefonia.Model.Config;
 
 namespace Telefonia.Model.Context
 {
     public class MySQLContext: DbContext
     {
-        public DbSet<Telefonia> Telefonias { get; set; }
+        public DbSet<Plano> Planos { get; set; }
+        public DbSet<Plano> DDDs { get; set; }
+        public DbSet<PlanoDDD> PlanoDDDs { get; set; }
 
         public MySQLContext()
         {
@@ -18,6 +17,14 @@ namespace Telefonia.Model.Context
         public MySQLContext(DbContextOptions<MySQLContext> options): base(options)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new PlanoConfiguration());
+            modelBuilder.ApplyConfiguration(new DDDConfiguration());
+            modelBuilder.ApplyConfiguration(new PlanoDDDConfiguration());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
