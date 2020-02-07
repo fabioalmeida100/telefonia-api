@@ -11,7 +11,7 @@ namespace Telefonia.Repository.Generic
     public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
         private MySQLContext _context;
-        private DbSet<T> dataset;
+        public DbSet<T> dataset;
 
         public GenericRepository(MySQLContext context)
         {

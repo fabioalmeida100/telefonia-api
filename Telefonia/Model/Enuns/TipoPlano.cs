@@ -7,8 +7,8 @@ namespace Telefonia.Model.Enuns
 {
     public enum TipoPlano: int
     {
+        Pre = 0,
         Controle = 1,
-        Pos = 2, 
-        Pre = 0
+        Pos = 2        
     }
 }

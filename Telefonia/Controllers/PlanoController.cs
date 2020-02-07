@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Telefonia.Business;
 using Telefonia.Model;
+using Telefonia.Model.Enuns;
 
 namespace Telefonia.Controllers
 {
@@ -19,16 +20,26 @@ namespace Telefonia.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var planos = _planoBusiness.FindAll();
-                                   
+            var planos = _planoBusiness.FindAll();                                   
             return Ok(planos);
         }
 
-        [HttpGet("{id}/{DDD}", Name = "Get")]
-        public IActionResult Get(int id, int DDD)
+        [HttpGet("codigo/{codigoPlano}/{ddd}", Name = "GetByCodigo")]
+        public IActionResult Get(int codigoPlano, int ddd)
         {
-            return Ok(_planoBusiness.FindById(id));
+            return Ok(_planoBusiness.FindByCodigoPlano(codigoPlano, ddd));
         }
-
+         
+        [HttpGet("tipo/{tipo}/{ddd}", Name = "GetByTipo")]
+        public IActionResult Get(TipoPlano tipo, int ddd)
+        {
+            return Ok(_planoBusiness.FindByTipo(tipo, ddd));
+        }
+                
+        [HttpGet("operadora/{operadora}/{ddd}", Name = "GetByOperadora")]
+        public IActionResult Get(string operadora, int ddd)
+        {
+            return Ok(_planoBusiness.FindByOperadora(operadora, ddd));
+        }
     }
 }
