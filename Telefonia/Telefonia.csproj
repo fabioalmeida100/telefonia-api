@@ -8,6 +8,8 @@
     <Compile Remove="Controllers\ValuesController.cs" />
     <Compile Remove="Migrations\20200207015628_Initial.cs" />
     <Compile Remove="Migrations\20200207015628_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200208012935_TableOperadora.cs" />
+    <Compile Remove="Migrations\20200208012935_TableOperadora.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +22,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.153.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />

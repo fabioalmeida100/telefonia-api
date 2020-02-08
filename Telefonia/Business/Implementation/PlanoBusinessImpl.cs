@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Telefonia.Model;
+using Telefonia.Data.Convertes;
+using Telefonia.Data.VO;
 using Telefonia.Model.Enuns;
-using Telefonia.Repository.Generic;
 using Telefonia.Repository.Implementation;
 
 namespace Telefonia.Business.Implementation
@@ -12,16 +10,21 @@ namespace Telefonia.Business.Implementation
     public class PlanoBusinessImpl : IPlanoBusiness
     {
         private PlanoRepositoryImpl _repository;
+        private readonly PlanoConverter _converter;
 
         public PlanoBusinessImpl(PlanoRepositoryImpl repository)
         {
             _repository = repository;
+            _converter = new PlanoConverter();
         }
 
 
-        public Plano Create(Plano plano)
+        public PlanoVO Create(PlanoVO plano)
         {
-            return _repository.Create(plano);
+            var planoEntity = _converter.Parse(plano);
+            planoEntity = _repository.Create(planoEntity);
+
+            return _converter.Parse(planoEntity);
         }
 
         public void Delete(long id)
@@ -29,46 +32,48 @@ namespace Telefonia.Business.Implementation
             _repository.Delete(id);
         }
 
-        public List<Plano> FindAll()
+        public List<PlanoVO> FindAll()
         {
-           return _repository.FindAll();
+           return _converter.ParseList(_repository.FindAll());
         }
 
-        public Plano FindById(long id)
+        public PlanoVO FindById(long id)
         {
-            return _repository.FindById(id);
+            return _converter.Parse(_repository.FindById(id));
         }
 
-        public Plano Update(Plano plano)
+        public PlanoVO Update(PlanoVO plano)
         {
-            return _repository.Update(plano);
+            var planoEntity = _converter.Parse(plano);
+            planoEntity = _repository.Update(planoEntity);
+            return _converter.Parse(planoEntity);
         }
 
-        public Plano FindByCodigoPlano(int codigoPlano, int ddd)
+        public PlanoVO FindByCodigoPlano(int codigoPlano, int ddd)
         {
             var plano = _repository.FindByCodigoPlano(codigoPlano);
             if (plano != null && plano.PlanoDDDs.FirstOrDefault(d => d.DDD.CodigoDDD == ddd) != null)
-                return plano;
+                return _converter.Parse(plano);
             else
-                return new Plano();
+                return new PlanoVO();
         }
 
-        public Plano FindByTipo(TipoPlano tipoPlano, int ddd)
+        public List<PlanoVO> FindByTipo(TipoPlano tipoPlano, int ddd)
         {
-            var plano = _repository.FindByTipo(tipoPlano);
-            if (plano != null && plano.PlanoDDDs.FirstOrDefault(d => d.DDD.CodigoDDD == ddd) != null)
-                return plano;
+            var plano = _repository.FindByTipo(tipoPlano, ddd);
+            if (plano.Count > 0)
+                return _converter.ParseList(plano);
             else
-                return new Plano();
+                return new List<PlanoVO>();
         }
 
-        public Plano FindByOperadora(string operadora, int ddd)
+        public List<PlanoVO> FindByOperadora(string operadora, int ddd)
         {
-            var plano = _repository.FindByOperadora(operadora);
-            if (plano != null && plano.PlanoDDDs.FirstOrDefault(d => d.DDD.CodigoDDD == ddd) != null)
-                return plano;
+            var plano = _repository.FindByOperadora(operadora, ddd);
+            if (plano.Count > 0)
+                return _converter.ParseList(plano);
             else
-                return new Plano();
+                return new List<PlanoVO>();
         }
     }
 }

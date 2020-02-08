@@ -14,5 +14,6 @@ namespace Telefonia.Model.Config
             builder.HasKey(p => p.Id);
             builder.Property(p => p.CodigoPlano).IsRequired();
         }
+
     }
 }

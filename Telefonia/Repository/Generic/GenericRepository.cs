@@ -10,12 +10,12 @@ namespace Telefonia.Repository.Generic
 {
     public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private MySQLContext _context;
+        public MySQLContext _context;
         public DbSet<T> dataset;
 
         public GenericRepository(MySQLContext context)
         {
-            _context = context;
+            _context = context;            
             dataset = _context.Set<T>();
         }
 

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using Telefonia.Business;
-using Telefonia.Model;
 using Telefonia.Model.Enuns;
 
 namespace Telefonia.Controllers

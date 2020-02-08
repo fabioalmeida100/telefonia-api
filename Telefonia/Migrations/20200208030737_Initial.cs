@@ -21,6 +21,19 @@ namespace Telefonia.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Operadoras",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Operadoras", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Plano",
                 columns: table => new
                 {
@@ -31,18 +44,23 @@ namespace Telefonia.Migrations
                     FranquiaInternet = table.Column<int>(nullable: false),
                     Valor = table.Column<decimal>(nullable: false),
                     Tipo = table.Column<int>(nullable: false),
-                    Operadora = table.Column<string>(nullable: true)
+                    OperadoraId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Plano", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Plano_Operadoras_OperadoraId",
+                        column: x => x.OperadoraId,
+                        principalTable: "Operadoras",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "PlanoDDDs",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: true),
                     PlanoId = table.Column<long>(nullable: false),
                     DDDId = table.Column<long>(nullable: false)
                 },
@@ -64,6 +82,12 @@ namespace Telefonia.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Plano_OperadoraId",
+                table: "Plano",
+                column: "OperadoraId",
+                unique: false);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PlanoDDDs_DDDId",
                 table: "PlanoDDDs",
                 column: "DDDId");
@@ -79,6 +103,9 @@ namespace Telefonia.Migrations
 
             migrationBuilder.DropTable(
                 name: "Plano");
+
+            migrationBuilder.DropTable(
+                name: "Operadoras");
         }
     }
 }
