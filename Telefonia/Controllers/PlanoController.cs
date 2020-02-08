@@ -39,5 +39,13 @@ namespace Telefonia.Controllers
         {
             return Ok(_planoBusiness.FindByOperadora(operadora, ddd));
         }
+
+        [HttpDelete("delete/{codigoPlano}", Name = "DeleteByCodigoPlano")]
+        public IActionResult DeleteByCodigoPlano(int codigoPlano)
+        {
+            _planoBusiness.DeleteByCodigoPlano(codigoPlano);
+            return NoContent();
+        }
+
     }
 }

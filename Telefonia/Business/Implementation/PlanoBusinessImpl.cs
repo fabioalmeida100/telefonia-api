@@ -75,5 +75,10 @@ namespace Telefonia.Business.Implementation
             else
                 return new List<PlanoVO>();
         }
+
+        public void DeleteByCodigoPlano(int codigoPlano)
+        {
+            _repository.DeleteByCodigoPlano(codigoPlano);
+        }
     }
 }

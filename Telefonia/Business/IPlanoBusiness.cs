@@ -14,5 +14,6 @@ namespace Telefonia.Business
         List<PlanoVO> FindAll();
         PlanoVO Update(PlanoVO plano);
         void Delete(long id);
+        void DeleteByCodigoPlano(int codigoPlano);
     }
 }
