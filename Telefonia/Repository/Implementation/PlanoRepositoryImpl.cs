@@ -37,6 +37,20 @@ namespace Telefonia.Repository.Implementation
       
         }
 
+        public Plano UpdateByCodigoPlano(Plano plano)
+        {
+            var planoEntity = dataset.Where(p => p.CodigoPlano == plano.CodigoPlano).FirstOrDefault();
+            if (planoEntity != null)
+            {
+                _context.Entry(planoEntity).CurrentValues.SetValues(plano);
+                _context.SaveChanges();
+                return plano;
+            }
+            else
+                return new Plano();
+
+        }
+
         public void DeleteByCodigoPlano(int codigoPlano)
         {
             var plano = dataset.Where(p => p.CodigoPlano == codigoPlano).FirstOrDefault();

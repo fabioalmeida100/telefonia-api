@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Telefonia.Business;
+using Telefonia.Data.VO;
 using Telefonia.Model.Enuns;
 
 namespace Telefonia.Controllers
@@ -38,6 +39,15 @@ namespace Telefonia.Controllers
         public IActionResult Get(string operadora, int ddd)
         {
             return Ok(_planoBusiness.FindByOperadora(operadora, ddd));
+        }
+
+        [HttpPut("update")]
+        public IActionResult Update([FromBody] PlanoVO planoVO)
+        {
+            if (planoVO == null)
+                return BadRequest();
+            else
+                return new ObjectResult(_planoBusiness.UpdateByCodigoPlano(planoVO));
         }
 
         [HttpDelete("delete/{codigoPlano}", Name = "DeleteByCodigoPlano")]

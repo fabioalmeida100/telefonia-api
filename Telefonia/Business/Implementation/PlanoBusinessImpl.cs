@@ -49,6 +49,14 @@ namespace Telefonia.Business.Implementation
             return _converter.Parse(planoEntity);
         }
 
+        public PlanoVO UpdateByCodigoPlano(PlanoVO plano)
+        {
+            var planoEntity = _converter.Parse(plano);
+            planoEntity = _repository.UpdateByCodigoPlano(planoEntity);
+            return _converter.Parse(planoEntity);
+        }
+
+
         public PlanoVO FindByCodigoPlano(int codigoPlano, int ddd)
         {
             var plano = _repository.FindByCodigoPlano(codigoPlano);

@@ -14,6 +14,18 @@ namespace Telefonia.Data.Convertes
                 return new Plano();
             else
             {
+                var plano = new Plano()
+                {
+                    Id = origem.Id,
+                    CodigoPlano = origem.CodigoPlano,
+                    FranquiaInternet = origem.FranquiaInternet,
+                    Minutos = origem.Minutos,
+                    Operadora = origem.Operadora,
+                    OperadoraId = origem.Operadora.Id,
+                    Tipo = origem.Tipo,
+                    Valor = origem.Valor
+                };
+
                 var listaDDDs = origem.DDDs;
                 var planosDDDs = new List<PlanoDDD>();
 
@@ -21,23 +33,17 @@ namespace Telefonia.Data.Convertes
                 {
                     var planoDDD = new PlanoDDD()
                     {
-                        DDD = item
+                        DDDId = item.Id,
+                        PlanoId = origem.Id,
+                        DDD = item,
+                        Plano = plano
                     };
                     
                     planosDDDs.Add(planoDDD);
                 }
-                               
-                return new Plano()
-                {
-                    Id = origem.Id,
-                    CodigoPlano = origem.CodigoPlano,
-                    FranquiaInternet = origem.FranquiaInternet,
-                    Minutos = origem.Minutos,
-                    Operadora = origem.Operadora,
-                    PlanoDDDs = planosDDDs,
-                    Tipo = origem.Tipo,
-                    Valor = origem.Valor
-                };
+
+                plano.PlanoDDDs = planosDDDs;
+                return plano;
             }
         }
 

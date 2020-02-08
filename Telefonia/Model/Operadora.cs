@@ -8,6 +8,6 @@ namespace Telefonia.Model
     {
         public string Nome { get; set; }
         [JsonIgnore]
-        public virtual ICollection<Plano> Planos { get; set; }
+        public virtual ICollection<Plano> Planos { get; set; } = new List<Plano>();
     }
 }
