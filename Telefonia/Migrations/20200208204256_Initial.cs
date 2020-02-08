@@ -13,7 +13,7 @@ namespace Telefonia.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CodigoDDD = table.Column<int>(nullable: false)
+                    codigo_ddd = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,7 +26,7 @@ namespace Telefonia.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(nullable: true)
+                    nome = table.Column<string>(maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,19 +39,19 @@ namespace Telefonia.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CodigoPlano = table.Column<int>(nullable: false),
-                    Minutos = table.Column<int>(nullable: false),
-                    FranquiaInternet = table.Column<int>(nullable: false),
-                    Valor = table.Column<decimal>(nullable: false),
-                    Tipo = table.Column<int>(nullable: false),
-                    OperadoraId = table.Column<long>(nullable: false)
+                    codigo_plano = table.Column<int>(nullable: false),
+                    minutos = table.Column<int>(nullable: false),
+                    franquia_internet = table.Column<int>(nullable: false),
+                    valor = table.Column<decimal>(nullable: false),
+                    tipo = table.Column<int>(nullable: false),
+                    operadora_id = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Plano", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Plano_Operadoras_OperadoraId",
-                        column: x => x.OperadoraId,
+                        name: "FK_Plano_Operadoras_operadora_id",
+                        column: x => x.operadora_id,
                         principalTable: "Operadoras",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -61,36 +61,35 @@ namespace Telefonia.Migrations
                 name: "PlanoDDDs",
                 columns: table => new
                 {
-                    PlanoId = table.Column<long>(nullable: false),
-                    DDDId = table.Column<long>(nullable: false)
+                    plano_id = table.Column<long>(nullable: false),
+                    ddd_id = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlanoDDDs", x => new { x.PlanoId, x.DDDId });
+                    table.PrimaryKey("PK_PlanoDDDs", x => new { x.plano_id, x.ddd_id });
                     table.ForeignKey(
-                        name: "FK_PlanoDDDs_DDD_DDDId",
-                        column: x => x.DDDId,
+                        name: "FK_PlanoDDDs_DDD_ddd_id",
+                        column: x => x.ddd_id,
                         principalTable: "DDD",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PlanoDDDs_Plano_PlanoId",
-                        column: x => x.PlanoId,
+                        name: "FK_PlanoDDDs_Plano_plano_id",
+                        column: x => x.plano_id,
                         principalTable: "Plano",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plano_OperadoraId",
+                name: "IX_Plano_operadora_id",
                 table: "Plano",
-                column: "OperadoraId",
-                unique: false);
+                column: "operadora_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlanoDDDs_DDDId",
+                name: "IX_PlanoDDDs_ddd_id",
                 table: "PlanoDDDs",
-                column: "DDDId");
+                column: "ddd_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

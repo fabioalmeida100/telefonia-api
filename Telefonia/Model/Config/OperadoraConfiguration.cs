@@ -7,7 +7,8 @@ namespace Telefonia.Model.Config
     {
         public void Configure(EntityTypeBuilder<Operadora> builder)
         {
-            builder.HasKey(p => p.Id);
+            builder.HasKey(o => o.Id);
+            builder.Property(o => o.Nome).HasMaxLength(30).IsRequired().HasColumnName("nome");
         }
     }
 }

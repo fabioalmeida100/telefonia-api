@@ -25,6 +25,7 @@ namespace Telefonia.Model.Context
             modelBuilder.ApplyConfiguration(new PlanoConfiguration());
             modelBuilder.ApplyConfiguration(new DDDConfiguration());
             modelBuilder.ApplyConfiguration(new PlanoDDDConfiguration());
+            modelBuilder.ApplyConfiguration(new OperadoraConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

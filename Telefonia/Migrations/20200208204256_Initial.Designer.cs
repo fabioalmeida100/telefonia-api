@@ -8,7 +8,7 @@ using Telefonia.Model.Context;
 namespace Telefonia.Migrations
 {
     [DbContext(typeof(MySQLContext))]
-    [Migration("20200208030737_Initial")]
+    [Migration("20200208204256_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,8 @@ namespace Telefonia.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CodigoDDD");
+                    b.Property<int>("CodigoDDD")
+                        .HasColumnName("codigo_ddd");
 
                     b.HasKey("Id");
 
@@ -35,7 +36,10 @@ namespace Telefonia.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnName("nome")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
 
@@ -47,31 +51,38 @@ namespace Telefonia.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CodigoPlano");
+                    b.Property<int>("CodigoPlano")
+                        .HasColumnName("codigo_plano");
 
-                    b.Property<int>("FranquiaInternet");
+                    b.Property<int>("FranquiaInternet")
+                        .HasColumnName("franquia_internet");
 
-                    b.Property<int>("Minutos");
+                    b.Property<int>("Minutos")
+                        .HasColumnName("minutos");
 
-                    b.Property<long>("OperadoraId");
+                    b.Property<long>("OperadoraId")
+                        .HasColumnName("operadora_id");
 
-                    b.Property<int>("Tipo");
+                    b.Property<int>("Tipo")
+                        .HasColumnName("tipo");
 
-                    b.Property<decimal>("Valor");
+                    b.Property<decimal>("Valor")
+                        .HasColumnName("valor");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OperadoraId")
-                        .IsUnique();
+                    b.HasIndex("OperadoraId");
 
                     b.ToTable("Plano");
                 });
 
             modelBuilder.Entity("Telefonia.Model.PlanoDDD", b =>
                 {
-                    b.Property<long>("PlanoId");
+                    b.Property<long>("PlanoId")
+                        .HasColumnName("plano_id");
 
-                    b.Property<long>("DDDId");
+                    b.Property<long>("DDDId")
+                        .HasColumnName("ddd_id");
 
                     b.HasKey("PlanoId", "DDDId");
 
@@ -83,8 +94,8 @@ namespace Telefonia.Migrations
             modelBuilder.Entity("Telefonia.Model.Plano", b =>
                 {
                     b.HasOne("Telefonia.Model.Operadora", "Operadora")
-                        .WithOne("Plano")
-                        .HasForeignKey("Telefonia.Model.Plano", "OperadoraId")
+                        .WithMany("Planos")
+                        .HasForeignKey("OperadoraId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

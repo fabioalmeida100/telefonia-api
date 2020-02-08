@@ -36,5 +36,6 @@ namespace Telefonia.Repository.Implementation
             return planos;
       
         }
+
     }
 }
