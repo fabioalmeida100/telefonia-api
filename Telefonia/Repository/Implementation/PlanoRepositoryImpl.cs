@@ -11,7 +11,7 @@ namespace Telefonia.Repository.Implementation
     {
         public PlanoRepositoryImpl(MySQLContext context) : base(context)
         {
-           
+
         }
 
         public Plano FindByCodigoPlano(int codigoPlano)
@@ -34,7 +34,7 @@ namespace Telefonia.Repository.Implementation
                 .Any()).ToList();
 
             return planos;
-      
+
         }
 
         public Plano UpdateByCodigoPlano(Plano plano)
@@ -43,6 +43,20 @@ namespace Telefonia.Repository.Implementation
             if (planoEntity != null)
             {
                 _context.Entry(planoEntity).CurrentValues.SetValues(plano);
+ 
+                foreach (var item in plano.PlanoDDDs)
+                {
+                    if (planoEntity.PlanoDDDs.Where(p => p.PlanoId == item.PlanoId &&
+                        p.DDDId == item.DDDId).FirstOrDefault() == null)
+                    {
+                        var planoDDD = new PlanoDDD()
+                        {                   
+                            DDDId = item.DDD.Id,
+                            PlanoId = planoEntity.Id                   
+                        };
+                        planoEntity.PlanoDDDs.Add(planoDDD);                 
+                    }
+                }
                 _context.SaveChanges();
                 return plano;
             }

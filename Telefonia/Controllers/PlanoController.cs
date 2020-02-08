@@ -16,7 +16,7 @@ namespace Telefonia.Controllers
             _planoBusiness = planoBusiness;
         }
 
-        [HttpGet]
+        [HttpGet("listarplanos")]
         public IActionResult Get()
         {
             var planos = _planoBusiness.FindAll();                                   
@@ -41,7 +41,7 @@ namespace Telefonia.Controllers
             return Ok(_planoBusiness.FindByOperadora(operadora, ddd));
         }
 
-        [HttpPut("update")]
+        [HttpPut("atualizar")]
         public IActionResult Update([FromBody] PlanoVO planoVO)
         {
             if (planoVO == null)
@@ -50,7 +50,7 @@ namespace Telefonia.Controllers
                 return new ObjectResult(_planoBusiness.UpdateByCodigoPlano(planoVO));
         }
 
-        [HttpDelete("delete/{codigoPlano}", Name = "DeleteByCodigoPlano")]
+        [HttpDelete("excluir/{codigoPlano}", Name = "DeleteByCodigoPlano")]
         public IActionResult DeleteByCodigoPlano(int codigoPlano)
         {
             _planoBusiness.DeleteByCodigoPlano(codigoPlano);
