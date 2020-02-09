@@ -27,7 +27,7 @@ No arquivo "appsettings.json" temos a string de conexão que está esperando um 
 
 Alterar o nome do banco e dos dados de acesso ao servidor conforme sua configuração.
 
-# Os Endpoint
+# Os endpoint (teste no Postman)
 
 Na pasta principal do projeto deixei um arquivo exportado do Postman em que já está preparado o ambiente para teste.
 
