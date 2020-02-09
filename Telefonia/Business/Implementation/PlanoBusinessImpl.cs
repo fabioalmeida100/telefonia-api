@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Telefonia.Data.Convertes;
 using Telefonia.Data.VO;
@@ -22,7 +23,10 @@ namespace Telefonia.Business.Implementation
         public PlanoVO Create(PlanoVO plano)
         {
             var planoEntity = _converter.Parse(plano);
-            planoEntity = _repository.Create(planoEntity);
+            if (_repository.FindByCodigoPlano(plano.CodigoPlano) == null)
+                planoEntity = _repository.Create(planoEntity);
+            else
+                throw new Exception("Um plano com este código já existe");
 
             return _converter.Parse(planoEntity);
         }
@@ -59,8 +63,8 @@ namespace Telefonia.Business.Implementation
 
         public PlanoVO FindByCodigoPlano(int codigoPlano, int ddd)
         {
-            var plano = _repository.FindByCodigoPlano(codigoPlano);
-            if (plano != null && plano.PlanoDDDs.FirstOrDefault(d => d.DDD.CodigoDDD == ddd) != null)
+            var plano = _repository.FindByCodigoPlano(codigoPlano, ddd);
+            if (plano != null)
                 return _converter.Parse(plano);
             else
                 return new PlanoVO();

@@ -20,7 +20,6 @@ namespace Telefonia.Data.Convertes
                     CodigoPlano = origem.CodigoPlano,
                     FranquiaInternet = origem.FranquiaInternet,
                     Minutos = origem.Minutos,
-                    Operadora = origem.Operadora,
                     OperadoraId = origem.Operadora.Id,
                     Tipo = origem.Tipo,
                     Valor = origem.Valor
@@ -34,9 +33,7 @@ namespace Telefonia.Data.Convertes
                     var planoDDD = new PlanoDDD()
                     {
                         DDDId = item.Id,
-                        PlanoId = origem.Id,
-                        DDD = item,
-                        Plano = plano
+                        PlanoId = origem.Id
                     };
                     
                     planosDDDs.Add(planoDDD);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using Telefonia.Business;
 using Telefonia.Data.VO;
 using Telefonia.Model.Enuns;
@@ -21,6 +22,21 @@ namespace Telefonia.Controllers
         {
             var planos = _planoBusiness.FindAll();                                   
             return Ok(planos);
+        }
+
+        [HttpPost("cadastrar")]
+        public IActionResult Post([FromBody] PlanoVO planoVO)
+        {
+            try
+            {
+                _planoBusiness.Create(planoVO);
+                return Ok($"Plano {planoVO.CodigoPlano} inserido com sucesso");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpGet("codigo/{codigoPlano}/{ddd}", Name = "GetByCodigo")]
@@ -47,14 +63,24 @@ namespace Telefonia.Controllers
             if (planoVO == null)
                 return BadRequest();
             else
-                return new ObjectResult(_planoBusiness.UpdateByCodigoPlano(planoVO));
+            {
+                _planoBusiness.UpdateByCodigoPlano(planoVO);
+                return Ok($"Plano {planoVO.CodigoPlano} atualizado");
+            }
         }
 
         [HttpDelete("excluir/{codigoPlano}", Name = "DeleteByCodigoPlano")]
         public IActionResult DeleteByCodigoPlano(int codigoPlano)
         {
-            _planoBusiness.DeleteByCodigoPlano(codigoPlano);
-            return NoContent();
+            try
+            {
+                _planoBusiness.DeleteByCodigoPlano(codigoPlano);
+                return Ok("Plano excluído");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }

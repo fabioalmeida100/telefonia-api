@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Telefonia.Model;
 using Telefonia.Model.Context;
@@ -12,6 +13,16 @@ namespace Telefonia.Repository.Implementation
         public PlanoRepositoryImpl(MySQLContext context) : base(context)
         {
 
+        }
+
+        public Plano FindByCodigoPlano(int codigoPlano, int ddd)
+        {
+            return dataset
+                .Where(
+                    p => p.CodigoPlano == codigoPlano 
+                    && p.PlanoDDDs.Where(d => d.DDD.CodigoDDD == ddd).Any())
+                .FirstOrDefault();
+                
         }
 
         public Plano FindByCodigoPlano(int codigoPlano)
@@ -51,7 +62,7 @@ namespace Telefonia.Repository.Implementation
                     {
                         var planoDDD = new PlanoDDD()
                         {                   
-                            DDDId = item.DDD.Id,
+                            DDDId = item.DDDId,
                             PlanoId = planoEntity.Id                   
                         };
                         planoEntity.PlanoDDDs.Add(planoDDD);                 
@@ -68,8 +79,15 @@ namespace Telefonia.Repository.Implementation
         public void DeleteByCodigoPlano(int codigoPlano)
         {
             var plano = dataset.Where(p => p.CodigoPlano == codigoPlano).FirstOrDefault();
-            _context.Remove(plano);
-            _context.SaveChanges();
+            if (plano == null)
+            {
+                throw new Exception("Plano não existe");
+            }
+            else
+            {
+                _context.Remove(plano);
+                _context.SaveChanges();
+            }
         }
 
     }
