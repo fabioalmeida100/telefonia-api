@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 using Telefonia.Business;
 using Telefonia.Business.Implementation;
 using Telefonia.Model.Context;
@@ -31,14 +32,21 @@ namespace Telefonia
                 .UseMySql(connectionString));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            }).AddXmlSerializerFormatters();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new
-                    Swashbuckle.AspNetCore.Swagger.Info
-                {
-                    Title = "RESTful API Telefonia",
-                    Version = "v1"
-                });
+                c.SwaggerDoc("v1", 
+                    new Swashbuckle.AspNetCore.Swagger.Info
+                    {
+                        Title = "RESTful API Telefonia",
+                        Version = "v1"
+                    });
             });
 
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));

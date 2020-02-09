@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
+using System.Collections.Generic;
 using Telefonia.Business;
 using Telefonia.Data.VO;
 using Telefonia.Model.Enuns;
