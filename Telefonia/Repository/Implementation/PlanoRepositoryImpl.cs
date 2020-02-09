@@ -53,6 +53,7 @@ namespace Telefonia.Repository.Implementation
             var planoEntity = dataset.Where(p => p.CodigoPlano == plano.CodigoPlano).FirstOrDefault();
             if (planoEntity != null)
             {
+                plano.Id = planoEntity.Id;
                 _context.Entry(planoEntity).CurrentValues.SetValues(plano);
  
                 foreach (var item in plano.PlanoDDDs)
