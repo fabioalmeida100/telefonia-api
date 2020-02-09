@@ -1,0 +1,513 @@
+{
+	"info": {
+		"_postman_id": "79c27ec5-2e1a-4144-865c-fc319e55df40",
+		"name": "RESTful API Telefonia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api/Plano",
+			"item": [
+				{
+					"name": "Lista Planos",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Plano/listarplanos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Plano",
+								"listarplanos"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Plano/listarplanos",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Plano",
+										"listarplanos"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Cadastrar",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"<long>\",\n    \"codigoPlano\": \"<integer>\",\n    \"minutos\": \"<integer>\",\n    \"franquiaInternet\": \"<integer>\",\n    \"valor\": \"<double>\",\n    \"tipo\": \"<integer>\",\n    \"operadora\": {\n        \"nome\": \"<string>\",\n        \"id\": \"<long>\"\n    },\n    \"ddDs\": [\n        {\n            \"codigoDDD\": \"<integer>\",\n            \"id\": \"<long>\"\n        },\n        {\n            \"codigoDDD\": \"<integer>\",\n            \"id\": \"<long>\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Plano/cadastrar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Plano",
+								"cadastrar"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Plano/cadastrar",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Plano",
+										"cadastrar"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obter Pelo Código Plano",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Plano/codigo/:codigoPlano/:ddd",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Plano",
+								"codigo",
+								":codigoPlano",
+								":ddd"
+							],
+							"variable": [
+								{
+									"key": "codigoPlano",
+									"value": "<integer>",
+									"description": {
+										"content": "",
+										"type": "text/plain"
+									}
+								},
+								{
+									"key": "ddd",
+									"value": "<integer>",
+									"description": {
+										"content": "",
+										"type": "text/plain"
+									}
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Plano/codigo/:codigoPlano/:ddd",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Plano",
+										"codigo",
+										":codigoPlano",
+										":ddd"
+									],
+									"variable": [
+										{
+											"key": "codigoPlano"
+										},
+										{
+											"key": "ddd"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obter Pelo Tipo Plano",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Plano/tipo/:tipo/:ddd",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Plano",
+								"tipo",
+								":tipo",
+								":ddd"
+							],
+							"variable": [
+								{
+									"key": "tipo",
+									"value": "<integer>",
+									"description": {
+										"content": "",
+										"type": "text/plain"
+									}
+								},
+								{
+									"key": "ddd",
+									"value": "<integer>",
+									"description": {
+										"content": "",
+										"type": "text/plain"
+									}
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Plano/tipo/:tipo/:ddd",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Plano",
+										"tipo",
+										":tipo",
+										":ddd"
+									],
+									"variable": [
+										{
+											"key": "tipo"
+										},
+										{
+											"key": "ddd"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obter Pela Operadora",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Plano/operadora/:operadora/:ddd",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Plano",
+								"operadora",
+								":operadora",
+								":ddd"
+							],
+							"variable": [
+								{
+									"key": "operadora",
+									"value": "<string>",
+									"description": {
+										"content": "",
+										"type": "text/plain"
+									}
+								},
+								{
+									"key": "ddd",
+									"value": "<integer>",
+									"description": {
+										"content": "",
+										"type": "text/plain"
+									}
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Plano/operadora/:operadora/:ddd",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Plano",
+										"operadora",
+										":operadora",
+										":ddd"
+									],
+									"variable": [
+										{
+											"key": "operadora"
+										},
+										{
+											"key": "ddd"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"<long>\",\n    \"codigoPlano\": \"<integer>\",\n    \"minutos\": \"<integer>\",\n    \"franquiaInternet\": \"<integer>\",\n    \"valor\": \"<double>\",\n    \"tipo\": \"<integer>\",\n    \"operadora\": {\n        \"nome\": \"<string>\",\n        \"id\": \"<long>\"\n    },\n    \"ddDs\": [\n        {\n            \"codigoDDD\": \"<integer>\",\n            \"id\": \"<long>\"\n        },\n        {\n            \"codigoDDD\": \"<integer>\",\n            \"id\": \"<long>\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Plano/atualizar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Plano",
+								"atualizar"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Plano/atualizar",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Plano",
+										"atualizar"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Excluir",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Plano/excluir/:codigoPlano",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Plano",
+								"excluir",
+								":codigoPlano"
+							],
+							"variable": [
+								{
+									"key": "codigoPlano",
+									"value": "<integer>",
+									"description": {
+										"content": "",
+										"type": "text/plain"
+									}
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Plano/excluir/:codigoPlano",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Plano",
+										"excluir",
+										":codigoPlano"
+									],
+									"variable": [
+										{
+											"key": "codigoPlano"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"variable": [
+		{
+			"id": "baseUrl",
+			"key": "baseUrl",
+			"value": "/",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
